@@ -14,6 +14,7 @@
 		2935D41320F6366500446304 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2935D41120F6366500446304 /* LaunchScreen.storyboard */; };
 		2935D41E20F6366500446304 /* RxCocoaVideoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935D41D20F6366500446304 /* RxCocoaVideoTests.swift */; };
 		2935D42920F6366500446304 /* RxCocoaVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2935D42820F6366500446304 /* RxCocoaVideoUITests.swift */; };
+		A491E4E9DEA025D23AA5AEAD /* Pods_RxCocoaVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 392B247D5589279F2A35FE63 /* Pods_RxCocoaVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,9 @@
 		2935D42420F6366500446304 /* RxCocoaVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxCocoaVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2935D42820F6366500446304 /* RxCocoaVideoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCocoaVideoUITests.swift; sourceTree = "<group>"; };
 		2935D42A20F6366500446304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		392B247D5589279F2A35FE63 /* Pods_RxCocoaVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxCocoaVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65ADE320A2AB5BDB6780B29D /* Pods-RxCocoaVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxCocoaVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxCocoaVideo/Pods-RxCocoaVideo.release.xcconfig"; sourceTree = "<group>"; };
+		93BB388C770212F8F5325AC3 /* Pods-RxCocoaVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxCocoaVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxCocoaVideo/Pods-RxCocoaVideo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A491E4E9DEA025D23AA5AEAD /* Pods_RxCocoaVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,8 @@
 				2935D41C20F6366500446304 /* RxCocoaVideoTests */,
 				2935D42720F6366500446304 /* RxCocoaVideoUITests */,
 				2935D40620F6365900446304 /* Products */,
+				FF7C9E1C1E9EF3D7E41F61C4 /* Pods */,
+				42330207F66A3F7E201BCB0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +132,23 @@
 			path = RxCocoaVideoUITests;
 			sourceTree = "<group>";
 		};
+		42330207F66A3F7E201BCB0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				392B247D5589279F2A35FE63 /* Pods_RxCocoaVideo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF7C9E1C1E9EF3D7E41F61C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				93BB388C770212F8F5325AC3 /* Pods-RxCocoaVideo.debug.xcconfig */,
+				65ADE320A2AB5BDB6780B29D /* Pods-RxCocoaVideo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2935D42D20F6366500446304 /* Build configuration list for PBXNativeTarget "RxCocoaVideo" */;
 			buildPhases = (
+				66C10E109E48EE432C256296 /* [CP] Check Pods Manifest.lock */,
 				2935D40120F6365900446304 /* Sources */,
 				2935D40220F6365900446304 /* Frameworks */,
 				2935D40320F6365900446304 /* Resources */,
+				7FA9F99E4382E7A39E9F9E61 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,6 +276,77 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		66C10E109E48EE432C256296 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RxCocoaVideo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FA9F99E4382E7A39E9F9E61 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RxCocoaVideo/Pods-RxCocoaVideo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BMPlayer/BMPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/IBAnimatable/IBAnimatable.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SGPagingView/SGPagingView.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftTheme/SwiftTheme.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BMPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IBAnimatable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SGPagingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTheme.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxCocoaVideo/Pods-RxCocoaVideo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2935D40120F6365900446304 /* Sources */ = {
@@ -428,6 +525,7 @@
 		};
 		2935D42E20F6366500446304 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93BB388C770212F8F5325AC3 /* Pods-RxCocoaVideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -446,6 +544,7 @@
 		};
 		2935D42F20F6366500446304 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65ADE320A2AB5BDB6780B29D /* Pods-RxCocoaVideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
