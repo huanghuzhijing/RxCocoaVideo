@@ -26,8 +26,11 @@ class UserDetailTableView: UITableView, UIGestureRecognizerDelegate {
     }
 }
 
-class UserDetailViewController2: UIViewController {
-    
+class UserDetailViewController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        print(2222)
+        return .lightContent    }
+
     private let disposeBag = DisposeBag()
     
     @IBOutlet weak var tableView: UserDetailTableView!
@@ -44,9 +47,13 @@ class UserDetailViewController2: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_clear"), for: .default)
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+         setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 1))
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // 设置 UI
         setupUI()
         // 按钮点击
@@ -72,7 +79,7 @@ class UserDetailViewController2: UIViewController {
     
 }
 
-extension UserDetailViewController2: UITableViewDelegate, UITableViewDataSource {
+extension UserDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -91,18 +98,26 @@ extension UserDetailViewController2: UITableViewDelegate, UITableViewDataSource 
     //上下滑动个人动态列表时，调用scrollViewDidScroll方法
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
+        print(offsetY)
         let navigationBarHeight: CGFloat = isIPhoneX ? -88.0 : -64.0
         
         if offsetY < navigationBarHeight {
+            print(offsetY,"offsetY")
             let totalOffset = kUserDetailHeaderBGImageViewHeight + abs(offsetY)
             let f = totalOffset / kUserDetailHeaderBGImageViewHeight
             headerView.backgroundImageView.frame = CGRect(x: -screenWidth * (f - 1) * 0.5, y: offsetY, width: screenWidth * f, height: totalOffset)
             navigationBar.navigationBar.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
         } else {
-            var alpha: CGFloat = (offsetY + 44) / 58
+            
+            var alpha: CGFloat = (offsetY + 40) / 58
             alpha = min(alpha, 1.0)
-            navigationBar.navigationBar.backgroundColor = UIColor(white: 1.0, alpha: alpha)
+//            navigationBar.navigationBar.backgroundColor = UIColor(white: 1.0, alpha: alpha)
+//            preferredStatusBarStyle.rawValue = 11
+            navigationBar.backgroundColor = UIColor(white: 1.0, alpha: alpha)
+            setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: alpha))
+//           preferredStatusBa
             if alpha == 1.0 {
+                
                 navigationController?.navigationBar.barStyle = .default
                 navigationBar.returnButton.theme_setImage("images.personal_home_back_black_24x24_", forState: .normal)
                 navigationBar.moreButton.theme_setImage("images.new_more_titlebar_24x24_", forState: .normal)
@@ -114,23 +129,42 @@ extension UserDetailViewController2: UITableViewDelegate, UITableViewDataSource 
             // 14 + 15 + 14
             var alpha1: CGFloat = offsetY / 57
             if offsetY >= 43 {
+//                navigationController?.navigationBar.isTranslucent = false
                 alpha1 = min(alpha1, 1.0)
                 navigationBar.nameLabel.isHidden = false
                 navigationBar.concernButton.isHidden = false
                 navigationBar.nameLabel.textColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha1)
                 navigationBar.concernButton.alpha = alpha1
             } else {
+                
                 alpha1 = min(0.0, alpha1)
                 navigationBar.nameLabel.textColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha1)
                 navigationBar.concernButton.alpha = alpha1
             }
+//            if offsetY >= -46 {
+//                navigationController?.navigationBar.isTranslucent = false
+//            }else{
+//                navigationController?.navigationBar.isTranslucent = true
+//            }
+            
+        }
+    }
+    func setStatusBarBackgroundColor(color : UIColor) {
+        let statusBarWindow : UIView = UIApplication.shared.value(forKey: "statusBarWindow") as! UIView
+        let statusBar : UIView = statusBarWindow.value(forKey: "statusBar") as! UIView
+        /*
+         if statusBar.responds(to:Selector("setBackgroundColor:")) {
+         statusBar.backgroundColor = color
+         }*/
+        if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = color
         }
     }
     
 }
 
 // MARK: - 点击事件
-extension UserDetailViewController2 {
+extension UserDetailViewController {
     
     /// 按钮点击
     private func selectedAction() {
@@ -163,7 +197,7 @@ extension UserDetailViewController2 {
     
 }
 
-extension UserDetailViewController2 {
+extension UserDetailViewController {
     /// 设置 UI
     private func setupUI() {
         view.theme_backgroundColor = "colors.cellBackgroundColor"

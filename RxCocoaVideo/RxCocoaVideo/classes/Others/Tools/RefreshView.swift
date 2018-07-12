@@ -38,6 +38,36 @@ class RefreshHeader: MJRefreshGifHeader {
     }
     
 }
+class RefreshHeaderWeather: MJRefreshGifHeader {
+    
+    /// 初始化
+    override func prepare() {
+        super.prepare()
+        // 图片数组
+        var images = [UIImage]()
+        // 遍历
+        for index in 1..<15 {
+            let image = UIImage(named: "wea\(index)")
+            images.append(image!)
+        }
+        // 设置空闲状态的图片
+        setImages(images, for: .idle)
+        // 设置刷新状态的图片
+        setImages(images, for: .refreshing)
+        setTitle("下拉推荐", for: .idle)
+        setTitle("松开推荐", for: .pulling)
+        setTitle("推荐中", for: .refreshing)
+    }
+    
+    override func placeSubviews() {
+        super.placeSubviews()
+        gifView.contentMode = .center
+        gifView.frame = CGRect(x: 0, y: 4, width: mj_w, height: 25)
+        stateLabel.font = UIFont.systemFont(ofSize: 12)
+        stateLabel.frame = CGRect(x: 0, y: 35, width: mj_w, height: 14)
+    }
+    
+}
 
 class RefreshAutoGifFooter: MJRefreshAutoGifFooter {
     

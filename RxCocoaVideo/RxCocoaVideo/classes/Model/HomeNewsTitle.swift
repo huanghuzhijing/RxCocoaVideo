@@ -157,7 +157,7 @@ enum NewsTitleCategory: String, HandyJSONEnum {
     /// 春节
     case springFestival = "spring_festival"
     /// 微头条
-    case weitoutiao = "weitoutiao"
+    case latestNews = "weitoutiao"
     /// 小视频 推荐
     case hotsoonVideo = "hotsoon_video"
     /// 小视频 颜值/美女

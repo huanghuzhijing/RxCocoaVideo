@@ -10,9 +10,19 @@ import UIKit
 import SwiftTheme
 import RxSwift
 import RxCocoa
+import CoreLocation
 
-class LatestNewsViewController: HomeTableViewController {
+class LatestNewsController: HomeTableViewController {
     
+    var maxCursor = 0
+    var dongtais = [UserDetailDongtai]()
+    var weatherInfo = WeatherModel(){
+        didSet{
+            navigationBar.weatherModel = weatherInfo
+        }
+    }
+    var iconStr:String = ""
+    var locationManager: CLLocationManager = CLLocationManager()
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -20,9 +30,13 @@ class LatestNewsViewController: HomeTableViewController {
         // 设置 UI
         setupUI()
         // 设置刷新控件
-        setupRefresh(with: .weitoutiao)
+        setupRefresh(with: .latestNews)
+        
+        loadLocationInfo()
+        
     }
-    
+    /// 懒加载 导航栏
+    private lazy var navigationBar = WeatherNavigationBar.loadViewFromNib()
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -34,8 +48,7 @@ class LatestNewsViewController: HomeTableViewController {
     
 }
 
-extension LatestNewsViewController {
-    
+extension LatestNewsController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let aNews = news[indexPath.row]
         return aNews.weitoutiaoHeight
@@ -44,18 +57,39 @@ extension LatestNewsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return news.count
     }
+    //跳转到动态详情
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let aNews = news[indexPath.row]
+        
+        let userId = aNews.user.user_id
+        let value = aNews.share_url
+        let id = getIntFromString(str: value)
+        self.setupFooter(id,userId, value: value, completionHandler: {
+            self.dongtais = $0
+            for dongtai in self.dongtais {
+                if($1 == self.getIntFromString(str: dongtai.id_str)){
+                    let dongtaiDetailVC = DongtaiDetailViewController()
+                    dongtaiDetailVC.dongtai = dongtai
+                    self.navigationController?.pushViewController(dongtaiDetailVC, animated: true)
+                }
+            }
+        })
+        
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.ym_dequeueReusableCell(indexPath: indexPath) as WeitoutiaoCell
         cell.aNews = news[indexPath.row]
+        //跳转到用户详情
         cell.coverButton.rx.controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] in
-                let userDetailVC = UserDetailViewController2()
+                let userDetailVC = UserDetailViewController()
+                
                 userDetailVC.userId = cell.aNews.user.user_id
                 self?.navigationController?.pushViewController(userDetailVC, animated: true)
             })
-            .disposed(by: disposeBag)
-        // 点击了那张图片
+            .disposed(by: cell.disposeBag)
+        // 展示大图
         cell.didSelectCell = { [weak self] (selectedIndex) in
             let previewBigImageVC = PreviewDongtaiBigImageController()
             previewBigImageVC.images = cell.aNews.large_image_list
@@ -64,16 +98,35 @@ extension LatestNewsViewController {
         }
         return cell
     }
+    private func setupFooter(_ id: Int,_ userId: Int, value: String ,completionHandler:@escaping ((_ datas: [UserDetailDongtai],_ id: Int)->())) {
+        NetworkTool.loadUserDetailDongtai(id: id,userId: userId, maxCursor: self.maxCursor, completionHandler: {
+            if $1.count == 0 {
+                return
+            }
+            completionHandler($1,id)
+        })
+        
+    }
+    func getIntFromString(str:String) -> Int {
+        let scanner = Scanner(string: str)
+        scanner.scanUpToCharacters(from: CharacterSet.decimalDigits, into: nil)
+        var number :Int = 0
+        
+        scanner.scanInt(&number)
+        
+        return number
+        
+    }
 }
 
-extension LatestNewsViewController {
+extension LatestNewsController {
     /// 设置 UI
     private func setupUI() {
         // 判断是否是夜间
+        
         MyThemeStyle.setupNavigationBarStyle(self, UserDefaults.standard.bool(forKey: isNight))
         // 添加 导航栏左右侧按钮
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: UserDefaults.standard.bool(forKey: isNight) ? "follow_title_profile_night_18x18_" : "follow_title_profile_18x18_"), style: .plain, target: self, action: #selector(leftBarButtonItemClicked))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: UserDefaults.standard.bool(forKey: isNight) ? "short_video_publish_icon_camera_night_24x24_" : "short_video_publish_icon_camera_24x24_"), style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
+        navigationItem.titleView = navigationBar
         // 添加通知
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDayOrNightButtonClicked), name: NSNotification.Name(rawValue: "dayOrNightButtonClicked"), object: nil)
         tableView.ym_registerCell(cell: WeitoutiaoCell.self)
@@ -95,4 +148,155 @@ extension LatestNewsViewController {
         
     }
     
+}
+extension LatestNewsController: CLLocationManagerDelegate {
+    
+    
+    func loadLocationInfo() {
+        print(111)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        locationManager.startUpdatingLocation()
+        
+        
+        
+        // let singleFingerTap = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        //  self.view.addGestureRecognizer(singleFingerTap)
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        let location = locations[locations.count-1] as CLLocation
+        if(location.horizontalAccuracy > 0){
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            print(latitude,"la")
+            print(longitude,"lo")
+            updateWeatherInfo(latitude: latitude, longitude: longitude)
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error",error)
+    }
+    func updateWeatherInfo(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
+        
+        NetworkTool.updateWeatherInfo(latitude: latitude, longitude: longitude, completionHandler: {
+            self.updateUISuccess(jsonResult: $0 as! NSDictionary )
+            
+        })
+    }
+    func updateUISuccess(jsonResult: NSDictionary!){
+        
+        if let tempResult = (jsonResult["main"] as! NSDictionary)["temp"]! as? Double{
+            var temprature: Double
+            
+            temprature = round(tempResult - 273.15)
+            //            asdas.text = jsonResult["name"] as? String
+            //            tempra.text = "\(temprature)degrees"
+            let condition = ((jsonResult["weather"] as! NSArray)[0] as! NSDictionary)["id"] as? Int
+            var sunrise = (jsonResult["sys"] as! NSDictionary)["sunrise"] as? Double
+            var sunset = (jsonResult["sys"] as! NSDictionary)["sunset"] as? Double
+            print(jsonResult["name"] as? String,"strs","\(temprature)degrees")
+            weatherInfo.cityName = (jsonResult["name"] as? String)!
+            weatherInfo.temprature = "\(Int(temprature))℃"
+            var nightTime = false
+            var now = NSDate().timeIntervalSince1970
+            // println(nowAsLong)
+            
+            if (now < sunrise! || now > sunset!) {
+                nightTime = true
+            }
+            self.updateWeatherIcon(condition: condition!, nightTime: nightTime)
+            print(iconStr,"UIImage(named:")
+            weatherInfo.iconStr = iconStr
+        }else{
+        }
+        
+    }
+    func updateWeatherIcon(condition: Int, nightTime: Bool) {
+        //        print(condition,"cond",nightTime)
+        //        self.iconStr= UIImage(named: "tstorm1")
+        //        switch condition {
+        //        case 800...:
+        //            if (nightTime){
+        //                self.iconStr= UIImage(named: "sunny_night") // sunny night?
+        //            }
+        //            else {
+        //                self.iconStr= UIImage(named: "sunny")
+        //            }
+        //        default:
+        //            if (nightTime){
+        //                self.iconStr= UIImage(named: "tstorm1_night") // sunny night?
+        //            }
+        //            else {
+        //                self.iconStr= UIImage(named: "tstorm1")
+        //            }
+        //        }
+        // Thunderstorm
+        
+       if (condition < 600) {
+           self.iconStr = "rain"
+        }
+            // Snow
+        else if (condition < 700) {
+            self.iconStr = "snowy"
+        }
+            // Fog / Mist / Haze / etc.
+        else if (condition < 771) {
+            if nightTime {
+                self.iconStr = "cloudy"
+            } else {
+                self.iconStr = "cloudy"
+            }
+        }
+            // Tornado / Squalls
+        else if (condition < 800) {
+            self.iconStr = "thunder"
+        }
+            // Sky is clear
+        else if (condition == 800) {
+            if (nightTime){
+                self.iconStr = "sunny" // sunny night?
+            }
+            else {
+                self.iconStr = "sunny"
+            }
+        }
+            // few / scattered / broken clouds
+        else if (condition < 804) {
+            if (nightTime){
+                self.iconStr = "cloudy"
+            }
+            else{
+                self.iconStr = "cloudy"
+            }
+        }
+            // overcast clouds
+        else if (condition == 804) {
+            self.iconStr = "cloudy"
+        }
+            // Extreme
+        else if ((condition >= 900 && condition < 903) || (condition > 904 && condition < 1000)) {
+            self.iconStr = "thunder"
+        }
+            // Cold
+        else if (condition == 903) {
+            self.iconStr = "snowy"
+        }
+            // Hot
+        else if (condition == 904) {
+            self.iconStr = "sunny"
+        }
+        else {
+            // Weather condition not available
+            self.iconStr = "dunno"
+        }
+    }
 }

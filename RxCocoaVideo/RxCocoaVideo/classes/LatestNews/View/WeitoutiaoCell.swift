@@ -9,17 +9,19 @@
 import UIKit
 import IBAnimatable
 import Kingfisher
+import RxCocoa
+import RxSwift
 
 class WeitoutiaoCell: UITableViewCell, RegisterCellFromNib {
-    
+
     var didSelectCell: ((_ selectedIndex: Int)->())?
-    
+    var disposeBag = DisposeBag()
     var aNews = NewsModel() {
         didSet {
             avatarImageView.kf.setImage(with: URL(string: aNews.user.avatar_url))
             vImageView.isHidden = !aNews.user.user_verified
             nameLabel.text = aNews.user.name
-            timeAndDescriptionLabel.text = aNews.createTime + (aNews.user.verified_content != "" ? (" · \(aNews.user.user_verified)") : "")
+            timeAndDescriptionLabel.text = aNews.createTime + (aNews.user.verified_content != "" ? (" · \(aNews.user.verified_content)") : "")
             likeButton.setTitle(aNews.digg_count == 0 ? "赞" : aNews.diggCount, for: .normal)
             likeButton.isSelected = aNews.user_digg
             commentButton.setTitle(aNews.commentCount, for: .normal)
@@ -101,7 +103,9 @@ class WeitoutiaoCell: UITableViewCell, RegisterCellFromNib {
         concernButton.theme_setTitleColor("colors.globalRedColor", forState: .normal)
         concernButton.theme_setTitleColor("colors.lightGray", forState: .selected)
     }
-    
+    override func prepareForReuse() {
+        disposeBag = DisposeBag()
+    }
     /// 关注按钮点击
     @IBAction func concernButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
