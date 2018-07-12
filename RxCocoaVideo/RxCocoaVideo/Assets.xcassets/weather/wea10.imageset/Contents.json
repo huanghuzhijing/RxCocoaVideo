@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "wea10.png",
+      "filename" : "wea10@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "wea10@2x.png",
       "scale" : "2x"
     },
     {

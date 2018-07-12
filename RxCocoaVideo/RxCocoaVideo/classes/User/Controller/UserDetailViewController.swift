@@ -28,7 +28,6 @@ class UserDetailTableView: UITableView, UIGestureRecognizerDelegate {
 
 class UserDetailViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        print(2222)
         return .lightContent    }
 
     private let disposeBag = DisposeBag()
@@ -98,11 +97,9 @@ extension UserDetailViewController: UITableViewDelegate, UITableViewDataSource {
     //上下滑动个人动态列表时，调用scrollViewDidScroll方法
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        print(offsetY)
         let navigationBarHeight: CGFloat = isIPhoneX ? -88.0 : -64.0
         
         if offsetY < navigationBarHeight {
-            print(offsetY,"offsetY")
             let totalOffset = kUserDetailHeaderBGImageViewHeight + abs(offsetY)
             let f = totalOffset / kUserDetailHeaderBGImageViewHeight
             headerView.backgroundImageView.frame = CGRect(x: -screenWidth * (f - 1) * 0.5, y: offsetY, width: screenWidth * f, height: totalOffset)

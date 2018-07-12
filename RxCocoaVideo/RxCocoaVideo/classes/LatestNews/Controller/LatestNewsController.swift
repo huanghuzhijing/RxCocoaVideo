@@ -153,7 +153,6 @@ extension LatestNewsController: CLLocationManagerDelegate {
     
     
     func loadLocationInfo() {
-        print(111)
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -176,8 +175,6 @@ extension LatestNewsController: CLLocationManagerDelegate {
         if(location.horizontalAccuracy > 0){
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            print(latitude,"la")
-            print(longitude,"lo")
             updateWeatherInfo(latitude: latitude, longitude: longitude)
             locationManager.stopUpdatingLocation()
         }
@@ -203,25 +200,22 @@ extension LatestNewsController: CLLocationManagerDelegate {
             let condition = ((jsonResult["weather"] as! NSArray)[0] as! NSDictionary)["id"] as? Int
             var sunrise = (jsonResult["sys"] as! NSDictionary)["sunrise"] as? Double
             var sunset = (jsonResult["sys"] as! NSDictionary)["sunset"] as? Double
-            print(jsonResult["name"] as? String,"strs","\(temprature)degrees")
             weatherInfo.cityName = (jsonResult["name"] as? String)!
             weatherInfo.temprature = "\(Int(temprature))℃"
             var nightTime = false
             var now = NSDate().timeIntervalSince1970
-            // println(nowAsLong)
             
             if (now < sunrise! || now > sunset!) {
                 nightTime = true
             }
             self.updateWeatherIcon(condition: condition!, nightTime: nightTime)
-            print(iconStr,"UIImage(named:")
+           
             weatherInfo.iconStr = iconStr
         }else{
         }
         
     }
     func updateWeatherIcon(condition: Int, nightTime: Bool) {
-        //        print(condition,"cond",nightTime)
         //        self.iconStr= UIImage(named: "tstorm1")
         //        switch condition {
         //        case 800...:

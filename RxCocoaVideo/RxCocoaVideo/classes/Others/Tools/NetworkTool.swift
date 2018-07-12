@@ -193,12 +193,10 @@ extension NetworkToolProtocol {
             guard response.result.isSuccess else { return }
             if let value = response.result.value {
                 let json = JSON(value)
-                print(json,"jsdata")
                 guard json["message"] == "success" else { return }
                 guard let datas = json["data"].array else { return }
                 
                 completionHandler(datas.compactMap {
-                    print(NewsModel.deserialize(from: $0["content"].string));
                     return NewsModel.deserialize(from: $0["content"].string) })
             }
         }
@@ -235,10 +233,8 @@ extension NetworkToolProtocol {
                     guard response.result.isSuccess else { return }
                     if let value = response.result.value {
                         let json = JSON(value)
-                        print(json,"jsdata")
                         guard json["message"] == "success" else { return }
                         guard let datas = json["data"].array else { return }
-                        print(datas,"datas")
                     }
                 }
             }
@@ -635,7 +631,6 @@ extension NetworkToolProtocol {
         //                        self.updateUISuccess(jsonResult: responseObject as! NSDictionary)
         //                    },
         //                    failure: {(operation:URLSessionDataTask?, error: Error!)
-        //                        in print("Error: " + error.localizedDescription)})
     }
     static func loadUserDetailDongtai(id: Int,userId: Int, maxCursor: Int, completionHandler: @escaping (_ cursor: Int,_ dongtais: [UserDetailDongtai]) -> ()) {
         
@@ -655,7 +650,6 @@ extension NetworkToolProtocol {
                 if let data = json["data"].dictionary {
                     let max_cursor = data["max_cursor"]!.int
                     if let datas = data["data"]!.arrayObject {
-                        print(max_cursor,"idssd")
                         completionHandler(max_cursor!, datas.compactMap({
                             
                             UserDetailDongtai.deserialize(from: $0 as? Dictionary)

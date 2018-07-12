@@ -25,7 +25,6 @@ extension String {
     }
     
     func sub(fromIndex: Int) -> String {
-        print(111)
         return self[min(fromIndex, length) ..< length]
     }
     

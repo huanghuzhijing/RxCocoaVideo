@@ -35,7 +35,7 @@
                     <state key="normal" title="temp"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="图文消息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-hl-Kro">
-                    <rect key="frame" x="143.5" y="12" width="88" height="21"/>
+                    <rect key="frame" x="121.5" y="12" width="88" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="88" id="IyH-QJ-oXJ"/>
                     </constraints>
@@ -63,7 +63,7 @@
                 <constraint firstItem="Cmh-Fw-8EL" firstAttribute="centerY" secondItem="noK-44-9X3" secondAttribute="centerY" id="92e-jl-ear"/>
                 <constraint firstItem="DqO-H9-C7t" firstAttribute="top" secondItem="PjD-9E-UXM" secondAttribute="top" id="PMl-Lo-Rha"/>
                 <constraint firstItem="E2t-24-M2J" firstAttribute="leading" secondItem="DqO-H9-C7t" secondAttribute="leading" id="Rvj-0O-X3Y"/>
-                <constraint firstItem="KXp-hl-Kro" firstAttribute="centerX" secondItem="noK-44-9X3" secondAttribute="centerX" id="bgv-mO-uDX" userLabel="图文消息.centerX = centerX - 13"/>
+                <constraint firstItem="KXp-hl-Kro" firstAttribute="centerX" secondItem="noK-44-9X3" secondAttribute="centerX" constant="-22" id="bgv-mO-uDX" userLabel="图文消息.centerX = centerX - 33"/>
                 <constraint firstItem="PjD-9E-UXM" firstAttribute="trailing" secondItem="DqO-H9-C7t" secondAttribute="trailing" constant="274" id="bqV-4T-oJx"/>
                 <constraint firstItem="Cmh-Fw-8EL" firstAttribute="leading" secondItem="noK-44-9X3" secondAttribute="leading" id="dhf-K3-C60"/>
                 <constraint firstItem="KXp-hl-Kro" firstAttribute="centerY" secondItem="noK-44-9X3" secondAttribute="centerY" id="fY7-4i-3aR"/>
