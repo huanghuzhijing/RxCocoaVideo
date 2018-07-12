@@ -37,7 +37,7 @@ class HomeTableViewController: UITableViewController {
     /// 设置刷新控件
     func setupRefresh(with category: NewsTitleCategory = .recommend) {
         // 刷新头部
-        let header = RefreshHeader { [weak self] in
+        let header = RefreshHeaderWeather { [weak self] in
             // 获取视频的新闻列表数据
             NetworkTool.loadApiNewsFeeds(category: category, ttFrom: .pull) {
                 if self!.tableView.mj_header.isRefreshing { self!.tableView.mj_header.endRefreshing() }

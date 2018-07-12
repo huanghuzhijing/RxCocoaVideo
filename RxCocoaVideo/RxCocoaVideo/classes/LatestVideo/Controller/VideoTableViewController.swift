@@ -75,7 +75,7 @@ extension VideoTableViewController {
         // 用户头像
         cell.avatarButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                let userDetailVC = UserDetailViewController2()
+                let userDetailVC = UserDetailViewController()
                 userDetailVC.userId = cell.video.user_info.user_id
                 self!.navigationController?.pushViewController(userDetailVC, animated: true)
             })

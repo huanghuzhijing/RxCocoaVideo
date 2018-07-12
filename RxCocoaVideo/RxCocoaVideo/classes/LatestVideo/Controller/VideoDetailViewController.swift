@@ -183,7 +183,7 @@ extension VideoDetailViewController {
         // 覆盖按钮点击
         userView.coverButton.rx.controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] (_) in
-                let userDetailVC = UserDetailViewController2()
+                let userDetailVC = UserDetailViewController()
                 userDetailVC.userId = self!.userView.userInfo.user_id
                 self!.navigationController?.pushViewController(userDetailVC, animated: true)
             })
