@@ -27,8 +27,8 @@ class UserDetailTableView: UITableView, UIGestureRecognizerDelegate {
 }
 
 class UserDetailViewController: UIViewController {
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent    }
 
     private let disposeBag = DisposeBag()
     
@@ -45,10 +45,17 @@ class UserDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_clear"), for: .default)
+        navigationController?.navigationBar.isTranslucent = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-         setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 1))
+        navigationController?.navigationBar.isTranslucent = false
+        if(redOrWhite.elementsEqual("red")){
+             navigationController?.navigationBar.backgroundColor = redColor
+        }else{
+             navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_white"), for: .default)
+        }
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_white"), for: .default)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +118,7 @@ extension UserDetailViewController: UITableViewDelegate, UITableViewDataSource {
 //            navigationBar.navigationBar.backgroundColor = UIColor(white: 1.0, alpha: alpha)
 //            preferredStatusBarStyle.rawValue = 11
             navigationBar.backgroundColor = UIColor(white: 1.0, alpha: alpha)
-            setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: alpha))
+            StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: alpha))
 //           preferredStatusBa
             if alpha == 1.0 {
                 
@@ -138,25 +145,17 @@ extension UserDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 navigationBar.nameLabel.textColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha1)
                 navigationBar.concernButton.alpha = alpha1
             }
+            
+            headerView.y = 0
 //            if offsetY >= -46 {
 //                navigationController?.navigationBar.isTranslucent = false
 //            }else{
 //                navigationController?.navigationBar.isTranslucent = true
 //            }
-            
+            navigationController?.navigationBar.isTranslucent = true
         }
     }
-    func setStatusBarBackgroundColor(color : UIColor) {
-        let statusBarWindow : UIView = UIApplication.shared.value(forKey: "statusBarWindow") as! UIView
-        let statusBar : UIView = statusBarWindow.value(forKey: "statusBar") as! UIView
-        /*
-         if statusBar.responds(to:Selector("setBackgroundColor:")) {
-         statusBar.backgroundColor = color
-         }*/
-        if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
-            statusBar.backgroundColor = color
-        }
-    }
+    
     
 }
 
@@ -168,7 +167,15 @@ extension UserDetailViewController {
         // 返回按钮点击
         navigationBar.returnButton.rx.controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] in // 需要加 [weak self] 防止循环引用
+                self?.navigationBar.backgroundColor = UIColor(white: 1.0, alpha: 1)
+                StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 1))
+                UIApplication.shared.statusBarStyle = .default
+//                DispatchQueue.main.asyncAfter(deadline: .now()+2, execute:
+//                    {
+//
                 self!.navigationController?.popViewController(animated: true)
+//                })
+               
             })
             .disposed(by: disposeBag)
         // 更多按钮点击

@@ -37,7 +37,19 @@ enum MyTheme: Int {
     }
     
 }
-
+class StatusBarBGC{
+    static func setStatusBarBackgroundColor(color : UIColor) {
+        let statusBarWindow : UIView = UIApplication.shared.value(forKey: "statusBarWindow") as! UIView
+        let statusBar : UIView = statusBarWindow.value(forKey: "statusBar") as! UIView
+        /*
+         if statusBar.responds(to:Selector("setBackgroundColor:")) {
+         statusBar.backgroundColor = color
+         }*/
+        if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = color
+        }
+    }
+}
 struct MyThemeStyle {
     /// 设置导航栏样式 （日间、夜间）
     static func setupNavigationBarStyle(_ viewController: UIViewController, _ isNight: Bool) {

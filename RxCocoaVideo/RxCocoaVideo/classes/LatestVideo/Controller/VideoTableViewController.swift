@@ -77,6 +77,7 @@ extension VideoTableViewController {
             .subscribe(onNext: { [weak self] in
                 let userDetailVC = UserDetailViewController()
                 userDetailVC.userId = cell.video.user_info.user_id
+                redOrWhite = "red"
                 self!.navigationController?.pushViewController(userDetailVC, animated: true)
             })
             .disposed(by: disposeBag)

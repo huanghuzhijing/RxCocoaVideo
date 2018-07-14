@@ -9,6 +9,10 @@
 import UIKit
 
 class WeatherNavigationBar: UIView,NibLoadable {
+    
+    /// 头像按钮点击
+    var didSelectAvatarButton: (()->())?
+    
     var weatherModel = WeatherModel(){
         didSet{
             icon.setImage( UIImage(named: weatherModel.iconStr), for: .normal)
@@ -19,10 +23,15 @@ class WeatherNavigationBar: UIView,NibLoadable {
     @IBOutlet var icon: UIButton!
     @IBOutlet var city: UIButton!
     @IBOutlet var temprature: UIButton!
+    @IBOutlet var avatarButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        city.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
+        temprature.contentVerticalAlignment = UIControlContentVerticalAlignment.top
+        avatarButton.theme_setImage("images.home_no_login_head", forState: .normal)
+        avatarButton.theme_setImage("images.home_no_login_head", forState: .highlighted)
         
     }
     
@@ -30,4 +39,8 @@ class WeatherNavigationBar: UIView,NibLoadable {
     override var intrinsicContentSize: CGSize {
         return UILayoutFittingExpandedSize
     }
+    @IBAction func showUserInfo(_ sender: Any) {
+         didSelectAvatarButton?()
+    }
+    
 }

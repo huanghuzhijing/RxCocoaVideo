@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HomeNavigationView" customModule="RxSwiftTableViewVideo" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HomeNavigationView" customModule="RxCocoaVideo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -26,9 +26,6 @@
                                 <constraint firstAttribute="width" constant="30" id="a02-TQ-Hos"/>
                             </constraints>
                             <state key="normal" image="home_no_login_head"/>
-                            <connections>
-                                <action selector="avatarButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="bod-eP-DXg"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNQ-8s-CLP" customClass="AnimatableButton" customModule="IBAnimatable">
                             <rect key="frame" x="45" y="7" width="285" height="30"/>
@@ -47,9 +44,6 @@
                                     <real key="value" value="6"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="searchButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="k7B-Li-OpN"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Gk-xZ-yby">
                             <rect key="frame" x="340" y="7" width="30" height="30"/>
@@ -59,8 +53,7 @@
                             </constraints>
                             <state key="normal" image="home_camera"/>
                             <connections>
-                                <action selector="avatarButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="5lV-qs-6cj"/>
-                                <action selector="cameraButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="pga-nH-A9u"/>
+                                <action selector="avatarButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="cZD-u7-1xD"/>
                             </connections>
                         </button>
                     </subviews>
@@ -87,8 +80,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9YB-44-f3Y"/>
             <connections>
-                <outlet property="avatarButton" destination="feK-0T-7Iy" id="h4S-Gd-SIs"/>
-                <outlet property="cameraButton" destination="0Gk-xZ-yby" id="t9g-XS-qru"/>
+                <outlet property="avatarButton" destination="0Gk-xZ-yby" id="xwd-yy-Z0D"/>
+                <outlet property="iconButton" destination="feK-0T-7Iy" id="TyQ-K0-lum"/>
                 <outlet property="searchButton" destination="yNQ-8s-CLP" id="nNs-g7-YUm"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="235"/>

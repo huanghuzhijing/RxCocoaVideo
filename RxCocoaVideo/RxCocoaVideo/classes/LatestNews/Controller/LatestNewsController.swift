@@ -12,8 +12,11 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
+var iconStr:String = ""
+var redOrWhite: String = "white"
 class LatestNewsController: HomeTableViewController {
-    
+   
+
     var maxCursor = 0
     var dongtais = [UserDetailDongtai]()
     var weatherInfo = WeatherModel(){
@@ -21,7 +24,7 @@ class LatestNewsController: HomeTableViewController {
             navigationBar.weatherModel = weatherInfo
         }
     }
-    var iconStr:String = ""
+    
     var locationManager: CLLocationManager = CLLocationManager()
     let disposeBag = DisposeBag()
     
@@ -31,7 +34,7 @@ class LatestNewsController: HomeTableViewController {
         setupUI()
         // 设置刷新控件
         setupRefresh(with: .latestNews)
-        
+        clickAction()
         loadLocationInfo()
         
     }
@@ -84,8 +87,8 @@ extension LatestNewsController {
         cell.coverButton.rx.controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] in
                 let userDetailVC = UserDetailViewController()
-                
                 userDetailVC.userId = cell.aNews.user.user_id
+                redOrWhite = "white"
                 self?.navigationController?.pushViewController(userDetailVC, animated: true)
             })
             .disposed(by: cell.disposeBag)
@@ -123,7 +126,10 @@ extension LatestNewsController {
     /// 设置 UI
     private func setupUI() {
         // 判断是否是夜间
-        
+      
+//       UIApplication.shared.statusBarStyle = .default
+//        StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1, alpha: 1))
+//        UIApplication.shared.statusBarStyle = .default
         MyThemeStyle.setupNavigationBarStyle(self, UserDefaults.standard.bool(forKey: isNight))
         // 添加 导航栏左右侧按钮
         navigationItem.titleView = navigationBar
@@ -131,7 +137,19 @@ extension LatestNewsController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDayOrNightButtonClicked), name: NSNotification.Name(rawValue: "dayOrNightButtonClicked"), object: nil)
         tableView.ym_registerCell(cell: WeitoutiaoCell.self)
     }
-    
+    private func clickAction() {
+        // 搜索按钮点击
+       
+        // 头像按钮点击
+                navigationBar.didSelectAvatarButton = {
+                    let storyboard = UIStoryboard(name: String(describing: MoreLoginViewController.self), bundle: nil)
+                    let moreLoginVC = storyboard.instantiateViewController(withIdentifier: String(describing: MoreLoginViewController.self)) as! MoreLoginViewController
+                    moreLoginVC.modalSize = (width: .full, height: .custom(size: Float(screenHeight - (isIPhoneX ? 44 : 20))))
+                    UIApplication.shared.keyWindow?.rootViewController?.present(moreLoginVC, animated: true, completion: nil)
+                }
+      
+        
+    }
     /// 接收到了按钮点击的通知
     @objc func receiveDayOrNightButtonClicked(notification: Notification) {
         let selected = notification.object as! Bool
@@ -236,61 +254,61 @@ extension LatestNewsController: CLLocationManagerDelegate {
         // Thunderstorm
         
        if (condition < 600) {
-           self.iconStr = "rain"
+           iconStr = "rain"
         }
             // Snow
         else if (condition < 700) {
-            self.iconStr = "snowy"
+            iconStr = "snowy"
         }
             // Fog / Mist / Haze / etc.
         else if (condition < 771) {
             if nightTime {
-                self.iconStr = "cloudy"
+                iconStr = "cloudy"
             } else {
-                self.iconStr = "cloudy"
+                iconStr = "cloudy"
             }
         }
             // Tornado / Squalls
         else if (condition < 800) {
-            self.iconStr = "thunder"
+            iconStr = "thunder"
         }
             // Sky is clear
         else if (condition == 800) {
             if (nightTime){
-                self.iconStr = "sunny" // sunny night?
+                iconStr = "sunny" // sunny night?
             }
             else {
-                self.iconStr = "sunny"
+                iconStr = "sunny"
             }
         }
             // few / scattered / broken clouds
         else if (condition < 804) {
             if (nightTime){
-                self.iconStr = "cloudy"
+                iconStr = "cloudy"
             }
             else{
-                self.iconStr = "cloudy"
+                iconStr = "cloudy"
             }
         }
             // overcast clouds
         else if (condition == 804) {
-            self.iconStr = "cloudy"
+            iconStr = "cloudy"
         }
             // Extreme
         else if ((condition >= 900 && condition < 903) || (condition > 904 && condition < 1000)) {
-            self.iconStr = "thunder"
+            iconStr = "thunder"
         }
             // Cold
         else if (condition == 903) {
-            self.iconStr = "snowy"
+            iconStr = "snowy"
         }
             // Hot
         else if (condition == 904) {
-            self.iconStr = "sunny"
+            iconStr = "sunny"
         }
         else {
             // Weather condition not available
-            self.iconStr = "dunno"
+            iconStr = "dunno"
         }
     }
 }

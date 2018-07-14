@@ -11,10 +11,12 @@ import SGPagingView
 import RxSwift
 import RxCocoa
 
+var redColor: UIColor?
 class HomeViewController: UIViewController {
     /// 标题和内容
     private var pageTitleView: SGPageTitleView?
     private var pageContentView: SGPageContentCollectionView?
+   
     /// 自定义导航栏
     private lazy var navigationBar = HomeNavigationView.loadViewFromNib()
     
@@ -31,11 +33,11 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.keyWindow?.theme_backgroundColor = "colors.windowColor"
-        // 设置状态栏属性
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background" + (UserDefaults.standard.bool(forKey: isNight) ? "_night" : "")), for: .default)
+//        UIApplication.shared.keyWindow?.theme_backgroundColor = "colors.windowColor"
+//        // 设置状态栏属性
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.setNavigationBarHidden(false, animated: animated)
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background" + (UserDefaults.standard.bool(forKey: isNight) ? "_night" : "")), for: .default)
     }
     
     override func viewDidLoad() {
@@ -52,6 +54,12 @@ extension HomeViewController {
     
     /// 设置 UI
     private func setupUI() {
+        if(redColor == nil){
+            redColor = navigationBar.backgroundColor!
+        }else{
+            navigationBar.backgroundColor = redColor
+        }
+        StatusBarBGC.setStatusBarBackgroundColor(color: navigationBar.backgroundColor!)
         view.theme_backgroundColor = "colors.cellBackgroundColor"
         // 设置自定义导航栏
         navigationItem.titleView = navigationBar
@@ -90,9 +98,12 @@ extension HomeViewController {
             
         }
         // 头像按钮点击
-        //        navigationBar.didSelectAvatarButton = { [weak self] in
-        //            self!.navigationController?.pushViewController(MineViewController(), animated: true)
-        //        }
+        navigationBar.didSelectAvatarButton = { [weak self] in
+            let storyboard = UIStoryboard(name: String(describing: MoreLoginViewController.self), bundle: nil)
+            let moreLoginVC = storyboard.instantiateViewController(withIdentifier: String(describing: MoreLoginViewController.self)) as! MoreLoginViewController
+            moreLoginVC.modalSize = (width: .full, height: .custom(size: Float(screenHeight - (isIPhoneX ? 44 : 20))))
+            UIApplication.shared.keyWindow?.rootViewController?.present(moreLoginVC, animated: true, completion: nil)
+        }
         // 相机按钮点击
         navigationBar.didSelectCameraButton = {
             

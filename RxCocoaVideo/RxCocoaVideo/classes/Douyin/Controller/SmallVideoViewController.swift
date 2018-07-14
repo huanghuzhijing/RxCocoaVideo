@@ -55,6 +55,7 @@ class SmallVideoViewController: UIViewController {
 extension SmallVideoViewController {
     
     func setupUI() {
+        StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 0))
         collectionView.collectionViewLayout = SmallVideoLayout()
         collectionView.ym_registerCell(cell: SmallVideoCell.self)
         diggButton.setImage(UIImage(named: "hts_vp_like_24x24_"), for: .normal)
@@ -71,7 +72,7 @@ extension SmallVideoViewController {
         }
         commentButton.setTitle(smallVideo.raw_data.action.commentCount, for: .normal)
         diggButton.setTitle(smallVideo.raw_data.action.diggCount, for: .normal)
-        collectionView.scrollToItem(at: IndexPath(item: originalIndex, section: 0), at: .centeredHorizontally, animated: false)
+        collectionView.scrollToItem(at: IndexPath(item: originalIndex, section: 0), at: .centeredVertically, animated: false)
         // 设置播放器
         setupPlayer(currentIndex: originalIndex)
     }

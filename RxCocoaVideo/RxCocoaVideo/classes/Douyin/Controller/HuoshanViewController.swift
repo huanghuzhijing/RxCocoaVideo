@@ -29,6 +29,8 @@ class HuoshanViewController: UIViewController {
 extension HuoshanViewController {
     /// 设置 UI
     private func setupUI() {
+       StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 1))
+        
         view.theme_backgroundColor = "colors.cellBackgroundColor"
         navigationItem.titleView = navigationBar
         // 判断是否是夜间
