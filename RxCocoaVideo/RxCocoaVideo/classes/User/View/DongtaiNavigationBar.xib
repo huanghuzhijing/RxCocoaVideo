@@ -37,8 +37,8 @@
                     </constraints>
                 </imageView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrl-cz-PUu">
-                    <rect key="frame" x="35" y="0.0" width="108.5" height="22"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <rect key="frame" x="35" y="0.0" width="125" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
@@ -47,7 +47,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kX-JU-Tsw">
-                    <rect key="frame" x="35" y="22" width="108.5" height="22"/>
+                    <rect key="frame" x="35" y="22" width="125" height="22"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -56,8 +56,8 @@
                         <action selector="buttonClicked" destination="iN0-l3-epB" eventType="touchUpInside" id="Y2R-CR-pIc"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微头条" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qde-ku-Bix">
-                    <rect key="frame" x="148.5" y="12" width="52" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qde-ku-Bix">
+                    <rect key="frame" x="162" y="12" width="35" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -73,11 +73,11 @@
                 <constraint firstItem="ZZb-HR-V1a" firstAttribute="trailing" secondItem="uDg-BY-gK8" secondAttribute="trailing" id="Uub-PJ-48b"/>
                 <constraint firstItem="3kX-JU-Tsw" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="X4P-4V-leG"/>
                 <constraint firstItem="uDg-BY-gK8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="frt-JI-dBR"/>
-                <constraint firstItem="Qde-ku-Bix" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-13" id="iCN-pQ-KPY"/>
+                <constraint firstItem="Qde-ku-Bix" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-8" id="iCN-pQ-KPY"/>
                 <constraint firstItem="mrl-cz-PUu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="k5e-JM-n4Z"/>
                 <constraint firstItem="3kX-JU-Tsw" firstAttribute="leading" secondItem="mrl-cz-PUu" secondAttribute="leading" id="kzm-Y6-2Qv"/>
                 <constraint firstItem="3kX-JU-Tsw" firstAttribute="height" secondItem="mrl-cz-PUu" secondAttribute="height" id="rky-zk-gNE"/>
-                <constraint firstItem="Qde-ku-Bix" firstAttribute="leading" secondItem="mrl-cz-PUu" secondAttribute="trailing" constant="5" id="uWT-ff-yz9"/>
+                <constraint firstItem="Qde-ku-Bix" firstAttribute="leading" secondItem="mrl-cz-PUu" secondAttribute="trailing" constant="2" id="uWT-ff-yz9"/>
                 <constraint firstItem="3kX-JU-Tsw" firstAttribute="trailing" secondItem="mrl-cz-PUu" secondAttribute="trailing" id="yH9-97-lHH"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -216,12 +216,29 @@ extension LatestNewsController: CLLocationManagerDelegate {
             //            asdas.text = jsonResult["name"] as? String
             //            tempra.text = "\(temprature)degrees"
             let condition = ((jsonResult["weather"] as! NSArray)[0] as! NSDictionary)["id"] as? Int
-            var sunrise = (jsonResult["sys"] as! NSDictionary)["sunrise"] as? Double
-            var sunset = (jsonResult["sys"] as! NSDictionary)["sunset"] as? Double
-            weatherInfo.cityName = (jsonResult["name"] as? String)!
+            let sunrise = (jsonResult["sys"] as! NSDictionary)["sunrise"] as? Double
+            let sunset = (jsonResult["sys"] as! NSDictionary)["sunset"] as? Double
+            let cityName = (jsonResult["name"] as? String)!
+            switch cityName{
+            case "Zaoyang" :
+                weatherInfo.cityName = "枣阳"
+                break
+            case "Beijing" :
+                weatherInfo.cityName = "北京"
+                break
+            case "Shanghai" :
+                weatherInfo.cityName = "上海"
+                break
+            case "Shenzhen" :
+                weatherInfo.cityName = "深圳"
+                break
+            default:
+                weatherInfo.cityName = cityName
+            }
+            
             weatherInfo.temprature = "\(Int(temprature))℃"
             var nightTime = false
-            var now = NSDate().timeIntervalSince1970
+            let now = NSDate().timeIntervalSince1970
             
             if (now < sunrise! || now > sunset!) {
                 nightTime = true
