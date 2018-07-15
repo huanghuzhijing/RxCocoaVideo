@@ -29,13 +29,9 @@ class SmallVideoViewController: UIViewController {
     @IBOutlet weak var titleButton: UIButton!
     /// 顶部约束
     @IBOutlet weak var titleTop: NSLayoutConstraint!
-    @IBOutlet weak var bottomViewBottom: NSLayoutConstraint!
+//    @IBOutlet weak var bottomViewBottom: NSLayoutConstraint!
     /// 评论按钮
-    @IBOutlet weak var commentButton: UIButton!
-    /// 点赞按钮
-    @IBOutlet weak var diggButton: UIButton!
-    /// 分享按钮
-    @IBOutlet weak var shareButton: UIButton!
+   
     /// 显示背景图片的 collectionView
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -58,20 +54,12 @@ extension SmallVideoViewController {
         StatusBarBGC.setStatusBarBackgroundColor(color: UIColor(white: 1.0, alpha: 0))
         collectionView.collectionViewLayout = SmallVideoLayout()
         collectionView.ym_registerCell(cell: SmallVideoCell.self)
-        diggButton.setImage(UIImage(named: "hts_vp_like_24x24_"), for: .normal)
-        diggButton.setImage(UIImage(named: "hts_vp_like_press_24x24_"), for: .selected)
-        bottomViewBottom.constant = isIPhoneX ? 34 : 0
+//        bottomViewBottom.constant = isIPhoneX ? 34 : 0
+//        bottomViewBottom.istran
         titleTop.constant = isIPhoneX ? 40 : 0
         view.layoutIfNeeded()
-        let smallVideo = smallVideos[originalIndex]
-        switch smallVideo.raw_data.group_source {
-        case .huoshan:
-            titleButton.theme_setImage("images.douyin_logo_new_100x28_", forState: .normal)
-        case .douyin:
-            titleButton.theme_setImage("images.douyin_logo_new_100x28_", forState: .normal)
-        }
-        commentButton.setTitle(smallVideo.raw_data.action.commentCount, for: .normal)
-        diggButton.setTitle(smallVideo.raw_data.action.diggCount, for: .normal)
+//        let smallVideo = smallVideos[originalIndex]
+        titleButton.theme_setImage("images.douyin_logo_new_100x28_", forState: .normal)
         collectionView.scrollToItem(at: IndexPath(item: originalIndex, section: 0), at: .centeredVertically, animated: false)
         // 设置播放器
         setupPlayer(currentIndex: originalIndex)
@@ -88,7 +76,6 @@ extension SmallVideoViewController {
                 // 主线程添加播放器
                 DispatchQueue.main.async {
                     // 获取当前的 cell
-                    print(currentIndex,"currentIndex")
                     if let cell: SmallVideoCell = self.collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? SmallVideoCell  {
                         if self.player.isPlaying { self.player.pause() }
                         // 先把 bgImageView 的子视图移除，再添加

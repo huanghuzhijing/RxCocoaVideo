@@ -16,7 +16,11 @@ class HomeViewController: UIViewController {
     /// 标题和内容
     private var pageTitleView: SGPageTitleView?
     private var pageContentView: SGPageContentCollectionView?
-   
+    override var prefersStatusBarHidden: Bool {
+        return false
+        
+    }
+    
     /// 自定义导航栏
     private lazy var navigationBar = HomeNavigationView.loadViewFromNib()
     
@@ -54,6 +58,7 @@ extension HomeViewController {
     
     /// 设置 UI
     private func setupUI() {
+        
         if(redColor == nil){  redColor = navigationBar.backgroundColor!}
         StatusBarBGC.setStatusBarBackgroundColor(color: redColor!)
         view.theme_backgroundColor = "colors.cellBackgroundColor"

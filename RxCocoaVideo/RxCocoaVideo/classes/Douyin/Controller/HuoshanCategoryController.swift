@@ -51,7 +51,6 @@ class HuoshanCategoryController: UIViewController {
         // 下拉刷新
         let header = RefreshHeader { [weak self] in
             // 获取首页、视频、小视频的新闻列表数据
-            print(self!.newsTitle.category,"self!.newsTitle.category")
             NetworkTool.loadApiNewsFeeds(category: self!.newsTitle.category, ttFrom: .enterAuto) {
                 if self!.collectionView.mj_header.isRefreshing { self!.collectionView.mj_header.endRefreshing() }
                 self!.maxBehotTime = $0

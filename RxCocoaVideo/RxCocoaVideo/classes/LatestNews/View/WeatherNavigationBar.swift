@@ -17,7 +17,9 @@ class WeatherNavigationBar: UIView,NibLoadable {
         didSet{
             icon.setImage( UIImage(named: weatherModel.iconStr), for: .normal)
             city.setTitle(weatherModel.cityName, for: .normal)
+            city.titleEdgeInsets = UIEdgeInsetsMake(15, 0, 0, 0)
             temprature.setTitle(weatherModel.temprature, for: .normal)
+//            temprature.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 25, 0)
         }
     }
     @IBOutlet var icon: UIButton!

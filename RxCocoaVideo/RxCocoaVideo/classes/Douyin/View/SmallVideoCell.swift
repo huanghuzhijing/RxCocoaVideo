@@ -14,28 +14,34 @@ import SnapKit
 import NVActivityIndicatorView
 
 class SmallVideoCell: UICollectionViewCell, RegisterCellFromNib {
-    
+    var heartCount = 0
     var didSelectAvatarOrNameButton: (()->())?
     
     
     var smallVideo = NewsModel() {
         didSet {
             bgImageView.image = nil
-            nameButton.setTitle(smallVideo.raw_data.user.info.name, for: .normal)
+            nameButton.setTitle("@" + smallVideo.raw_data.user.info.name, for: .normal)
+//            userButton.kf.setImage(with: URL(string: smallVideo.raw_data.user.info.avatar_url), for: .normal)
             avatarButton.kf.setImage(with: URL(string: smallVideo.raw_data.user.info.avatar_url), for: .normal)
-            vImageView.isHidden = !smallVideo.raw_data.user.info.user_verified
-            concernButton.isSelected = smallVideo.raw_data.user.relation.is_following
+//            vImageView.isHidden = !smallVideo.raw_data.user.info.user_verified
+//            concernButton.isSelected = smallVideo.raw_data.user.relation.is_following
             titleLabel.attributedText = smallVideo.raw_data.attrbutedText
+            heartCount = smallVideo.raw_data.action.digg_count
+            heartBtn.set(image: UIImage(named: "white_heart_small"), title: String(heartCount), titlePosition: .bottom,
+                              additionalSpacing: 10.0, state: .normal)
+            commentBtn.set(image: UIImage(named: "comment_white"), title: smallVideo.raw_data.action.commentCount, titlePosition: .bottom,
+                         additionalSpacing: 10.0, state: .normal)
+            shareBtn.set(image: UIImage(named: "share_white"), title: smallVideo.raw_data.action.forwardCount, titlePosition: .bottom,
+                         additionalSpacing: 10.0, state: .normal)
         }
     }
     
     /// 头像按钮
     @IBOutlet weak var avatarButton: AnimatableButton!
-    @IBOutlet weak var vImageView: UIImageView!
     /// 用户名按钮
     @IBOutlet weak var nameButton: AnimatableButton!
     /// 关注按钮
-    @IBOutlet weak var concernButton: AnimatableButton!
     /// 标题
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -43,6 +49,27 @@ class SmallVideoCell: UICollectionViewCell, RegisterCellFromNib {
     
     @IBOutlet weak var bgImageView: UIImageView!
     
+   
+    @IBOutlet weak var heartBtn: UIButton!
+    @IBOutlet weak var commentBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
+    
+    
+    
+    @IBAction func clickHeart(_ sender: Any) {
+        var imgName = ""
+        if(heartBtn.isSelected == true){
+            heartBtn.isSelected = false
+            heartCount-=1
+            imgName = "white_heart_small"
+        }else{
+            heartBtn.isSelected = true
+            heartCount+=1
+            imgName = "red_heart_small"
+        }
+        heartBtn.set(image: UIImage(named: imgName), title: String(heartCount), titlePosition: .bottom,
+                     additionalSpacing: 10.0, state: .normal)
+    }
     /// 关注按钮点击
     @IBAction func concernButtonClicked(_ sender: UIButton) {
         if sender.isSelected { // 已经关注，点击则取消关注
