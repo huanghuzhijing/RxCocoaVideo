@@ -80,7 +80,7 @@ extension VideoTableViewController {
                 redOrWhite = "red"
                 self!.navigationController?.pushViewController(userDetailVC, animated: true)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: cell.disposeBag)
         // 评论按钮点击
         cell.commentButton.rx.tap
             .subscribe(onNext: {

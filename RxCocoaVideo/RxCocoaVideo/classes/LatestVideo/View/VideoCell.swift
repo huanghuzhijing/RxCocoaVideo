@@ -9,9 +9,15 @@
 import UIKit
 import IBAnimatable
 import Kingfisher
+import RxCocoa
+import RxSwift
 
 class VideoCell: UITableViewCell, RegisterCellFromNib {
     /// 视频数据
+    var disposeBag = DisposeBag()
+    override func prepareForReuse() {
+        disposeBag = DisposeBag()
+    }
     var video = NewsModel() {
         didSet {
             titleLabel.text = video.title
