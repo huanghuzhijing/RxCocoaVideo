@@ -34,9 +34,7 @@ class UserDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UserDetailTableView!
     
-    @IBOutlet weak var bottomview: UIView!
-    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var bottomViewBottom: NSLayoutConstraint!
+ 
     
     var userId: Int = 0
     var userDetail = UserDetail()
@@ -51,8 +49,10 @@ class UserDetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isTranslucent = false
         if(redOrWhite.elementsEqual("red")){
-             navigationController?.navigationBar.backgroundColor = redColor
+             navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background"), for: .default)
+            StatusBarBGC.setStatusBarBackgroundColor(color: redColor!)
         }else{
+            navigationController?.navigationBar.barStyle = .default
              navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_white"), for: .default)
         }
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "navigation_background_white"), for: .default)
@@ -209,7 +209,7 @@ extension UserDetailViewController {
         navigationController?.navigationBar.barStyle = .black
         navigationItem.titleView = navigationBar
         tableView.ym_registerCell(cell: UserDetailCell.self)
-        tableView.tableFooterView = UIView()
+//        tableView.tableFooterView = UIView()
         /// 获取用户详情数据  张雪峰 53271122458 马未都 51025535398
         //        userId = 8   // 这里可以注释掉，那么就会是不同的 userId 了
         NetworkTool.loadUserDetail(userId: userId) { (userDetail) in
@@ -217,7 +217,6 @@ extension UserDetailViewController {
             NetworkTool.loadUserDetailDongtaiList(userId: self.userId, maxCursor: 0, completionHandler: { (cursor, dongtais) in
                 if userDetail.bottom_tab.count != 0 {
                     // 底部 view 的高度
-                    self.bottomViewHeight.constant = isIPhoneX ? 78 : 44
                     self.view.layoutIfNeeded()
                     //                    middleView.addSubview(originThreadView)
                     //                    originThreadView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: dongtai.origin_thread.height)
@@ -230,7 +229,7 @@ extension UserDetailViewController {
                 self.topTabScrollView.topTabs = userDetail.top_tab
                 self.tableView.tableHeaderView = self.headerView
                 let navigationBarHeight: CGFloat = isIPhoneX ? 88.0 : 64.0
-                let rowHeight = screenHeight - navigationBarHeight - self.tableView.sectionHeaderHeight - self.bottomViewHeight.constant
+                let rowHeight = screenHeight - navigationBarHeight - self.tableView.sectionHeaderHeight
                 self.tableView.rowHeight = rowHeight
                 // 一定要先 reload 一次，否则不能刷新数据，也不能设置行高
                 self.tableView.reloadData()

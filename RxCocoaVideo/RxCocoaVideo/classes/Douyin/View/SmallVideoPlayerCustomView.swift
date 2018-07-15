@@ -12,12 +12,13 @@ class SmallVideoPlayerCustomView: BMPlayerControlView {
     
     override func customizeUIComponents() {
         BMPlayerConf.topBarShowInCase = .none
-        playButton.removeFromSuperview()
+//        playButton.removeFromSuperview()
         currentTimeLabel.removeFromSuperview()
         totalTimeLabel.removeFromSuperview()
         timeSlider.removeFromSuperview()
         fullscreenButton.removeFromSuperview()
         progressView.removeFromSuperview()
+        replayButton.removeFromSuperview()
     }
     
 }

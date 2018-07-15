@@ -26,7 +26,7 @@ class UserDetailHeaderView2: UIView, NibLoadable {
                 verifiedAgencyLabelHeight.constant = 0
                 verifiedAgencyLabelTop.constant = 0
             } else {
-                verifiedAgencyLabel.text = userDetail.verified_agency + "："
+//                verifiedAgencyLabel.text = userDetail.verified_agency + "："
                 verifiedContentLabel.text = userDetail.verified_content
             }
             concernButton.isSelected = userDetail.is_following
@@ -123,7 +123,9 @@ class UserDetailHeaderView2: UIView, NibLoadable {
         verifiedContentLabel.theme_textColor = "colors.black"
         descriptionLabel.theme_textColor = "colors.black"
         descriptionLabel.theme_textColor = "colors.black"
-        toutiaohaoImageView.theme_image = "images.toutiaohao"
+        //toutiaohaoImageView.theme_image = "images.toutiaohao"
+        toutiaohaoImageView.isHidden = true
+        verifiedAgencyLabel.text = "认证："
         areaButton.theme_setTitleColor("colors.black", forState: .normal)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedConcernButtonClicked), name: NSNotification.Name(rawValue: NavigationBarConcernButtonClicked), object: nil)
     }

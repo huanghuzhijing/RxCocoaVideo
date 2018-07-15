@@ -88,14 +88,17 @@ extension SmallVideoViewController {
                 // 主线程添加播放器
                 DispatchQueue.main.async {
                     // 获取当前的 cell
-                    let cell = self.collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as! SmallVideoCell
-                    if self.player.isPlaying { self.player.pause() }
-                    // 先把 bgImageView 的子视图移除，再添加
-                    for subview in cell.bgImageView.subviews { subview.removeFromSuperview() }
-                    cell.bgImageView.addSubview(self.player)
-                    self.player.snp.makeConstraints({ $0.edges.equalTo(cell.bgImageView) })
-                    let asset = BMPlayerResource(url: URL(string: response!.url!.absoluteString)!)
-                    self.player.setVideo(resource: asset)
+                    print(currentIndex,"currentIndex")
+                    if let cell: SmallVideoCell = self.collectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? SmallVideoCell  {
+                        if self.player.isPlaying { self.player.pause() }
+                        // 先把 bgImageView 的子视图移除，再添加
+                        for subview in cell.bgImageView.subviews { subview.removeFromSuperview() }
+                        cell.bgImageView.addSubview(self.player)
+                        self.player.snp.makeConstraints({ $0.edges.equalTo(cell.bgImageView) })
+                        let asset = BMPlayerResource(url: URL(string: response!.url!.absoluteString)!)
+                        self.player.setVideo(resource: asset)
+                    }
+                   
                 }
             })
             dataTask.resume()
@@ -128,7 +131,8 @@ extension SmallVideoViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let currentIndex = Int(scrollView.contentOffset.x / scrollView.width + 0.5)
+        if self.player.isPlaying { self.player.pause() }
+        let currentIndex = Int(scrollView.contentOffset.y / scrollView.height + 0.5)
         // 根据当前索引设置播放器
         setupPlayer(currentIndex: currentIndex)
     }
