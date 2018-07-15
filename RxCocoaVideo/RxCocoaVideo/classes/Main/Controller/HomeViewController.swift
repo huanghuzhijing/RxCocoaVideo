@@ -54,12 +54,8 @@ extension HomeViewController {
     
     /// 设置 UI
     private func setupUI() {
-        if(redColor == nil){
-            redColor = navigationBar.backgroundColor!
-        }else{
-            navigationBar.backgroundColor = redColor
-        }
-        StatusBarBGC.setStatusBarBackgroundColor(color: navigationBar.backgroundColor!)
+        if(redColor == nil){  redColor = navigationBar.backgroundColor!}
+        StatusBarBGC.setStatusBarBackgroundColor(color: redColor!)
         view.theme_backgroundColor = "colors.cellBackgroundColor"
         // 设置自定义导航栏
         navigationItem.titleView = navigationBar
