@@ -9,7 +9,7 @@
 import UIKit
 import IBAnimatable
 
-class MoreLoginViewController: AnimatableModalViewController, StoryboardLoadable {
+class MoreLoginViewController: AnimatableModalViewController, StoryboardLoadable ,UITextFieldDelegate{
     
     @IBOutlet weak var loginCloseButton: UIButton!
     /// 顶部标题
@@ -56,7 +56,7 @@ class MoreLoginViewController: AnimatableModalViewController, StoryboardLoadable
         findPasswordView.isHidden = !sender.isSelected
         middleTipLabel.isHidden = sender.isSelected
         passwordtextField.placeholder = sender.isSelected ? "密码" : "请输入验证码"
-        topLabel.text = sender.isSelected ? "帐号密码登录" : "登录你的头条，精彩永不消失"
+        topLabel.text = sender.isSelected ? "帐号密码登录" : "登录这个app，精彩永不消失"
     }
     
     override func viewDidLoad() {
@@ -92,5 +92,14 @@ class MoreLoginViewController: AnimatableModalViewController, StoryboardLoadable
     /// 关闭按钮点击
     @IBAction func moreLoginColseButtonClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        mobileTextField.resignFirstResponder()
+        passwordtextField.resignFirstResponder()
     }
 }

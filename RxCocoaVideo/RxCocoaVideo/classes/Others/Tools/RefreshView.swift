@@ -54,9 +54,9 @@ class RefreshHeaderWeather: MJRefreshGifHeader {
         setImages(images, for: .idle)
         // 设置刷新状态的图片
         setImages(images, for: .refreshing)
-        setTitle("下拉推荐", for: .idle)
-        setTitle("松开推荐", for: .pulling)
-        setTitle("推荐中", for: .refreshing)
+        setTitle("下拉刷新", for: .idle)
+        setTitle("松开刷新", for: .pulling)
+        setTitle("刷新中", for: .refreshing)
     }
     
     override func placeSubviews() {
