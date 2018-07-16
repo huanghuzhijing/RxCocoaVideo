@@ -13,6 +13,7 @@ import RxCocoa
 import CoreLocation
 
 var iconStr:String = ""
+var temperature:String = ""
 var redOrWhite: String = "white"
 class LatestNewsController: HomeTableViewController {
    
@@ -232,11 +233,14 @@ extension LatestNewsController: CLLocationManagerDelegate {
             case "Shenzhen" :
                 weatherInfo.cityName = "深圳"
                 break
+            case "Hangzhou" :
+                weatherInfo.cityName = "杭州"
+                break
             default:
                 weatherInfo.cityName = cityName
             }
-            
-            weatherInfo.temprature = "\(Int(temprature))℃"
+            temperature = "\(Int(temprature))℃"
+            weatherInfo.temprature = temperature
             var nightTime = false
             let now = NSDate().timeIntervalSince1970
             

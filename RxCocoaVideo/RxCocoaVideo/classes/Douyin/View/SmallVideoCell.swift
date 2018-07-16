@@ -15,6 +15,7 @@ import NVActivityIndicatorView
 
 class SmallVideoCell: UICollectionViewCell, RegisterCellFromNib {
     var heartCount = 0
+    var heart_count = ""
     var didSelectAvatarOrNameButton: (()->())?
     
     
@@ -27,8 +28,14 @@ class SmallVideoCell: UICollectionViewCell, RegisterCellFromNib {
 //            vImageView.isHidden = !smallVideo.raw_data.user.info.user_verified
 //            concernButton.isSelected = smallVideo.raw_data.user.relation.is_following
             titleLabel.attributedText = smallVideo.raw_data.attrbutedText
-            heartCount = smallVideo.raw_data.action.digg_count
-            heartBtn.set(image: UIImage(named: "white_heart_small"), title: String(heartCount), titlePosition: .bottom,
+            heartCount = smallVideo.raw_data.action.digg_count * 9
+            if(heartCount > 9999){
+               
+                heart_count = String(format: "%.1f", Float(heartCount)/10000) + "W"
+            }else{
+                heart_count = String(heartCount)
+            }
+            heartBtn.set(image: UIImage(named: "white_heart_small"), title: heart_count, titlePosition: .bottom,
                               additionalSpacing: 10.0, state: .normal)
             commentBtn.set(image: UIImage(named: "comment_white"), title: smallVideo.raw_data.action.commentCount, titlePosition: .bottom,
                          additionalSpacing: 10.0, state: .normal)

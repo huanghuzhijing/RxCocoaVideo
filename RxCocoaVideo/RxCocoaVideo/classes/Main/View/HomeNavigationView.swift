@@ -28,7 +28,9 @@ class HomeNavigationView: UIView, NibLoadable {
         searchButton.theme_backgroundColor = "colors.cellBackgroundColor"
         searchButton.theme_setTitleColor("colors.grayColor150", forState: .normal)
         searchButton.setImage(UIImage(named: "search_small_16x16_"), for: [.normal, .highlighted])
-        iconButton.setImage(UIImage(named: iconStr), for: .normal)
+        iconButton.set(image: UIImage(named: iconStr), title: temperature, titlePosition: .bottom,
+                     additionalSpacing: -5, state: .normal)
+//        iconButton.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0)
         avatarButton.theme_setImage("images.home_no_login_head", forState: .normal)
         avatarButton.theme_setImage("images.home_no_login_head", forState: .highlighted)
         // 首页顶部导航栏搜索推荐标题内容
