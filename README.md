@@ -2,10 +2,10 @@
 
 # 功能截图。
 
-![](readmeImg/IMG_1249.PNG)
-![](readmeImg/IMG_1254.PNG)
-![](readmeImg/IMG_1255.PNG)
+![](IMG_1249.PNG)
+![](IMG_1254.PNG)
+![](IMG_1255.PNG)
 
-![](readmeImg/IMG_1256.PNG)
-![](readmeImg/IMG_1257.PNG)
-![](readmeImg/IMG_1258.PNG)
+![](IMG_1256.PNG)
+![](IMG_1257.PNG)
+![](IMG_1258.PNG)
