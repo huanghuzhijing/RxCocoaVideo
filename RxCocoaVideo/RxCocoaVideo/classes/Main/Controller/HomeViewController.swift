@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
     private lazy var navigationBar = HomeNavigationView.loadViewFromNib()
     
     private lazy var disposeBag = DisposeBag()
-    /// 添加频道按钮
+    
     private lazy var addChannelButton: UIButton = {
         let addChannelButton = UIButton(frame: CGRect(x: screenWidth - newsTitleHeight, y: 0, width: newsTitleHeight, height: newsTitleHeight))
         addChannelButton.theme_setImage("images.add_channel_titlbar_thin_new_16x16_", forState: .normal)
@@ -64,7 +64,6 @@ extension HomeViewController {
         view.theme_backgroundColor = "colors.cellBackgroundColor"
         // 设置自定义导航栏
         navigationItem.titleView = navigationBar
-        // 添加频道
         view.addSubview(addChannelButton)
         // 首页顶部新闻标题的数据
         NetworkTool.loadHomeNewsTitleData {
