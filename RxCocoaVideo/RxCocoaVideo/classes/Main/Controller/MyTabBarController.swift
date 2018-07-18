@@ -26,16 +26,14 @@ class MyTabBarController: UITabBarController {
         if selected { // 设置为夜间
             for childController in childViewControllers {
                 switch childController.title! {
-                case "首页":
-                    setNightChildController(controller: childController, imageName: "home")
-                case "西瓜视频":
+               
+                case "最近视频":
                     setNightChildController(controller: childController, imageName: "video")
-                case "小视频":
-                    setNightChildController(controller: childController, imageName: "huoshan")
-                case "微头条":
+                case "仿抖音":
+                    setNightChildController(controller: childController, imageName: "douyin")
+                case "图文消息":
                     setNightChildController(controller: childController, imageName: "weitoutiao")
-                case "":
-                    setNightChildController(controller: childController, imageName: "redpackage")
+              
                 default:
                     break
                 }
@@ -43,16 +41,12 @@ class MyTabBarController: UITabBarController {
         } else { // 设置为日间
             for childController in childViewControllers {
                 switch childController.title! {
-                case "首页":
-                    setDayChildController(controller: childController, imageName: "home")
-                case "西瓜视频":
+                case "最近视频":
                     setDayChildController(controller: childController, imageName: "video")
-                case "小视频":
-                    setDayChildController(controller: childController, imageName: "huoshan")
-                case "微头条":
+                case "仿抖音":
+                    setDayChildController(controller: childController, imageName: "douyin")
+                case "图文消息":
                     setDayChildController(controller: childController, imageName: "weitoutiao")
-                case "":
-                    setDayChildController(controller: childController, imageName: "redpackage")
                 default:
                     break
                 }
